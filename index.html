@@ -1,1 +1,90 @@
 
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 아이디어 연구소</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f5f9;
+      color: #172554;
+      margin: 0;
+      padding: 40px 20px;
+    }
+
+    main {
+      max-width: 650px;
+      margin: auto;
+      background: white;
+      padding: 28px;
+      border-radius: 18px;
+      box-shadow: 0 8px 25px #00000010;
+    }
+
+    h1 { color: #2563eb; }
+
+    textarea {
+      width: 100%;
+      box-sizing: border-box;
+      min-height: 120px;
+      padding: 12px;
+      font: inherit;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+    }
+
+    button {
+      margin-top: 12px;
+      padding: 12px 18px;
+      background: #2563eb;
+      color: white;
+      border: 0;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    #result {
+      margin-top: 20px;
+      padding: 15px;
+      background: #eff6ff;
+      border-radius: 10px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>AI 아이디어 연구소</h1>
+    <p>너의 아이디어를 입력하고 개발 계획을 만들어 보자.</p>
+
+    <textarea id="idea"
+      placeholder="예: 로봇 센서 데이터를 분석하는 AI"></textarea>
+
+    <button onclick="makePlan()">개발 계획 만들기</button>
+
+    <div id="result">여기에 개발 계획이 표시돼.</div>
+  </main>
+
+  <script>
+    function makePlan() {
+      const idea = document.getElementById("idea").value.trim();
+      const result = document.getElementById("result");
+
+      if (!idea) {
+        result.textContent = "먼저 아이디어를 입력해 줘!";
+        return;
+      }
+
+      result.textContent =
+        "내 아이디어: " + idea +
+        "\n\n1. 해결할 문제 정의하기" +
+        "\n2. 필요한 기능 정하기" +
+        "\n3. 화면과 프로그램 만들기" +
+        "\n4. 테스트하고 개선하기";
+    }
+  </script>
+</body>
+</html>
+
