@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI 아이디어 연구소</title>
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -23,7 +24,9 @@
       box-shadow: 0 8px 25px #00000010;
     }
 
-    h1 { color: #2563eb; }
+    h1 {
+      color: #2563eb;
+    }
 
     textarea {
       width: 100%;
@@ -36,7 +39,7 @@
     }
 
     button {
-      margin-top: 12px;
+      margin: 12px 6px 0 0;
       padding: 12px 18px;
       background: #2563eb;
       color: white;
@@ -45,32 +48,63 @@
       cursor: pointer;
     }
 
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    .secondary {
+      background: #64748b;
+    }
+
     #result {
       margin-top: 20px;
       padding: 15px;
       background: #eff6ff;
       border-radius: 10px;
       white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    #counter {
+      text-align: right;
+      color: #64748b;
+      font-size: 13px;
+      margin-top: 6px;
     }
   </style>
 </head>
+
 <body>
   <main>
     <h1>AI 아이디어 연구소</h1>
-    <p>너의 아이디어를 입력하고 개발 계획을 만들어 보자.</p>
+    <p>아이디어를 입력하고 개발 계획을 만들어 보자!</p>
 
-    <textarea id="idea"
-      placeholder="예: 로봇 센서 데이터를 분석하는 AI"></textarea>
+    <textarea
+      id="idea"
+      maxlength="500"
+      placeholder="예: 로봇 센서 데이터를 분석하는 AI"
+    ></textarea>
+
+    <div id="counter">0 / 500자</div>
 
     <button onclick="makePlan()">개발 계획 만들기</button>
+    <button class="secondary" onclick="clearIdea()">초기화</button>
+    <button class="secondary" onclick="copyPlan()">결과 복사</button>
 
     <div id="result">여기에 개발 계획이 표시돼.</div>
   </main>
 
   <script>
+    const ideaInput = document.getElementById("idea");
+    const result = document.getElementById("result");
+    const counter = document.getElementById("counter");
+
+    ideaInput.addEventListener("input", function () {
+      counter.textContent = ideaInput.value.length + " / 500자";
+    });
+
     function makePlan() {
-      const idea = document.getElementById("idea").value.trim();
-      const result = document.getElementById("result");
+      const idea = ideaInput.value.trim();
 
       if (!idea) {
         result.textContent = "먼저 아이디어를 입력해 줘!";
@@ -79,12 +113,27 @@
 
       result.textContent =
         "내 아이디어: " + idea +
-        "\n\n1. 해결할 문제 정의하기" +
+        "\n\n[개발 계획]" +
+        "\n1. 해결할 문제 정의하기" +
         "\n2. 필요한 기능 정하기" +
         "\n3. 화면과 프로그램 만들기" +
         "\n4. 테스트하고 개선하기";
     }
+
+    function clearIdea() {
+      ideaInput.value = "";
+      counter.textContent = "0 / 500자";
+      result.textContent = "여기에 개발 계획이 표시돼.";
+    }
+
+    async function copyPlan() {
+      try {
+        await navigator.clipboard.writeText(result.textContent);
+        alert("개발 계획을 복사했어!");
+      } catch (error) {
+        alert("복사할 수 없어. 사이트 주소가 HTTPS인지 확인해 줘.");
+      }
+    }
   </script>
 </body>
 </html>
-
